@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
     # 'php-zip' es una extensión de PHP necesaria para Composer.
     php-zip \
     # 'unzip' es una herramienta para descomprimir archivos.
-    unzip
+    unzip \
     # Instala las extensiones de PHP que faltan para Laravel (pint y phpunit).
     # 'php8.2-xml' y 'php8.2-dom' son esenciales para que Composer instale las dependencias.
     php8.2-xml \
