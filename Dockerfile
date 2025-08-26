@@ -30,9 +30,11 @@ RUN apt-get update && apt-get install -y \
     # 'unzip' es una herramienta para descomprimir archivos.
     unzip \
     # Instala las extensiones de PHP que faltan para Laravel (pint y phpunit).
-    # 'php8.2-xml' y 'php8.2-dom' son esenciales para que Composer instale las dependencias.
+    # 'php8.2-xml', 'php8.2-dom' son esenciales para que Composer instale las dependencias.
     php8.2-xml \
-    php8.2-dom
+    php8.2-dom \
+    # 'php8.2-mbstring' es necesario para manejar cadenas de caracteres de múltiples bytes.
+    php8.2-mbstring
     
 # Descarga el script de configuración para la versión LTS (soporte a largo plazo) de Node.js,
 # lo ejecuta y luego instala Node.js y npm.
