@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     # 'git-lfs' maneja archivos grandes en Git. Útil para repositorios pesados.
     git-lfs \
+    # 'php8.2-sqlite3' instalación del driver para tener la BBDD por defecto para prototipos laravel. 
+    php8.2-sqlite3 \
     # 'default-mysql-client' es el cliente de línea de comandos para bases de datos MySQL.
     # Permite a tu contenedor conectarse y gestionar una DB MySQL.
     default-mysql-client \
