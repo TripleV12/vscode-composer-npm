@@ -14,9 +14,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     # 'git-lfs' maneja archivos grandes en Git. Útil para repositorios pesados.
     git-lfs \
-    # 'mysql-client' es el cliente de línea de comandos para bases de datos MySQL.
+    # 'default-mysql-client' es el cliente de línea de comandos para bases de datos MySQL.
     # Permite a tu contenedor conectarse y gestionar una DB MySQL.
-    mysql-client \
+    default-mysql-client \
     # 'postgresql-client' es el cliente para bases de datos PostgreSQL.
     # Te permite conectarte a una DB PostgreSQL desde el contenedor.
     postgresql-client \
