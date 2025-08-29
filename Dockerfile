@@ -41,6 +41,9 @@ RUN apt-get update && apt-get install -y \
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt-get install -y nodejs
 
+# Instalación de Gemini CLI
+RUN npm install -g @google/gemini-cli@latest
+
 # Descarga el instalador de Composer (gestor de dependencias de PHP)
 # y lo instala en la ruta de ejecutables del sistema.
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
