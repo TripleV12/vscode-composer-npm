@@ -38,16 +38,16 @@ USER coder
 
 # RUN 4: Instala las extensiones de VS Code una por una.
 # Si un RUN falla, sabremos exactamente qué extensión está causando el problema.
-RUN code-server --install-extension Google.geminicodeassist && \
---install-extension google.gemini-cli-vscode-ide-companion && \
---install-extension MS-CEINTL.vscode-language-pack-es && \
---install-extension laravel.vscode-laravel && \
---install-extension bmewburn.vscode-intelephense-client && \
---install-extension onecentlin.laravel-blade && \
---install-extension mikestead.dotenv && \
---install-extension php-debug && \
---install-extension amiralizadeh9480.laravel-extra-intellisense && \
---install-extension livewire.livewire-snippets && \
+RUN code-server --install-extension Google.geminicodeassist \
+--install-extension google.gemini-cli-vscode-ide-companion \
+--install-extension MS-CEINTL.vscode-language-pack-es \
+--install-extension laravel.vscode-laravel \
+--install-extension bmewburn.vscode-intelephense-client \
+--install-extension onecentlin.laravel-blade \
+--install-extension mikestead.dotenv \
+--install-extension php-debug \
+--install-extension amiralizadeh9480.laravel-extra-intellisense \
+--install-extension livewire.livewire-snippets \
 --install-extension Vue.volar
 
 # RUN 5: Crea y añade el archivo de configuración settings.json con formato.
