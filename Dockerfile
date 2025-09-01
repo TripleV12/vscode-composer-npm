@@ -47,7 +47,6 @@ RUN code-server --install-extension onecentlin.laravel-blade
 RUN code-server --install-extension mikestead.dotenv
 RUN code-server --install-extension xdebug.php-debug
 RUN code-server --install-extension amiralizadeh9480.laravel-extra-intellisense
-RUN code-server --install-extension livewire.livewire-snippets
 RUN code-server --install-extension Vue.volar
 
 # RUN 5: Crea y añade el archivo de configuración settings.json con formato.
