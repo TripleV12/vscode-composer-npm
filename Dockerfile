@@ -1,7 +1,10 @@
+# Usa la última imagen oficial de code-server como base.
 FROM codercom/code-server:latest
 
+# Cambia al usuario 'root' temporalmente para instalar software.
 USER root
 
+# RUN 1: Instala todas las dependencias del sistema, PHP, Composer y Node.js.
 RUN apt-get update && apt-get install -y \
     curl \
     git-lfs \
@@ -22,21 +25,18 @@ RUN apt-get update && apt-get install -y \
     apt-get install -y nodejs && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# RUN 2: Instala Yarn y Gemini CLI globalmente usando npm.
 RUN npm install -g yarn && \
     npm install -g @google/gemini-cli@latest
 
+# RUN 3: Asegura los permisos para el usuario 'coder' y crea la carpeta de configuración.
 RUN mkdir -p /home/coder/.config/code-server/ && \
-    chown -R coder:coder /home/coder/ && \
-    cat <<EOF > /home/coder/.config/code-server/settings.json
-{
-  "workbench.colorTheme": "Visual Studio Dark",
-  "geminicodeassist.updateChannel": "Insiders",
-  "keyboard.layout": "es"
-}
-EOF
+    chown -R coder:coder /home/coder/
 
+# Cambia de nuevo al usuario por defecto 'coder' para instalar extensiones y configurar el entorno.
 USER coder
 
+# RUN 4: Instala las extensiones de VS Code.
 RUN code-server --install-extension Google.geminicodeassist \
     --install-extension google.gemini-cli-vscode-ide-companion \
     --install-extension MS-CEINTL.vscode-language-pack-es \
@@ -44,8 +44,17 @@ RUN code-server --install-extension Google.geminicodeassist \
     --install-extension bmewburn.vscode-intelephense-client \
     --install-extension ryannaddy.laravel-artisan \
     --install-extension onecentlin.laravel-blade \
-    --install-extension mikestead.dotenv \
+    --install-extension --install-extension mikestead.dotenv \
     --install-extension php-debug \
     --install-extension amiralizadeh9480.laravel-extra-intellisense \
     --install-extension livewire.livewire-snippets \
     --install-extension Vue.volar
+
+# RUN 5: Crea y añade el archivo de configuración settings.json con formato.
+RUN cat <<EOF > /home/coder/.config/code-server/settings.json
+{
+  "workbench.colorTheme": "Visual Studio Dark",
+  "geminicodeassist.updateChannel": "Insiders",
+  "keyboard.layout": "es"
+}
+EOF
