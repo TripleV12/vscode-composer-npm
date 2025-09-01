@@ -33,22 +33,22 @@ RUN npm install -g yarn && \
 RUN mkdir -p /home/coder/.config/code-server/ && \
     chown -R coder:coder /home/coder/
 
-# Cambia de nuevo al usuario por defecto 'coder' para instalar extensiones y configurar el entorno.
+# Cambia al usuario por defecto 'coder' para instalar extensiones.
 USER coder
 
-# RUN 4: Instala las extensiones de VS Code una por una.
+# RUN 4: Instala las extensiones de VS Code, una por una.
 # Si un RUN falla, sabremos exactamente qué extensión está causando el problema.
-RUN code-server --install-extension Google.geminicodeassist \
---install-extension google.gemini-cli-vscode-ide-companion \
---install-extension MS-CEINTL.vscode-language-pack-es \
---install-extension laravel.vscode-laravel \
---install-extension bmewburn.vscode-intelephense-client \
---install-extension onecentlin.laravel-blade \
---install-extension mikestead.dotenv \
---install-extension php-debug \
---install-extension amiralizadeh9480.laravel-extra-intellisense \
---install-extension livewire.livewire-snippets \
---install-extension Vue.volar
+RUN code-server --install-extension Google.geminicodeassist
+RUN code-server --install-extension google.gemini-cli-vscode-ide-companion
+RUN code-server --install-extension MS-CEINTL.vscode-language-pack-es
+RUN code-server --install-extension laravel.vscode-laravel
+RUN code-server --install-extension bmewburn.vscode-intelephense-client
+RUN code-server --install-extension onecentlin.laravel-blade
+RUN code-server --install-extension mikestead.dotenv
+RUN code-server --install-extension php-debug
+RUN code-server --install-extension amiralizadeh9480.laravel-extra-intellisense
+RUN code-server --install-extension livewire.livewire-snippets
+RUN code-server --install-extension Vue.volar
 
 # RUN 5: Crea y añade el archivo de configuración settings.json con formato.
 RUN cat <<EOF > /home/coder/.config/code-server/settings.json
