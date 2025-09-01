@@ -44,7 +44,7 @@ RUN code-server --install-extension Google.geminicodeassist \
     --install-extension bmewburn.vscode-intelephense-client \
     --install-extension ryannaddy.laravel-artisan \
     --install-extension onecentlin.laravel-blade \
-    --install-extension --install-extension mikestead.dotenv \
+    --install-extension mikestead.dotenv \
     --install-extension php-debug \
     --install-extension amiralizadeh9480.laravel-extra-intellisense \
     --install-extension livewire.livewire-snippets \
