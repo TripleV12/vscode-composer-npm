@@ -38,17 +38,18 @@ RUN apt-get update && apt-get install -y \
     php-curl \
     php-gd \
     php-xdebug \
-    # Descarga e instala Node.js y npm.
-    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
-    apt-get install -y nodejs && \
-    # Instala Yarn globalmente.
-    npm install -g yarn && \
-    # Instala Gemini CLI globalmente.
-    npm install -g @google/gemini-cli@latest && \
     # Descarga el instalador de Composer
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    # Descarga e instala NodeJS
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt-get install -y nodejs && \
     # Limpia la caché del gestor de paquetes para reducir el tamaño final de la imagen.
     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instala Yarn globalmente.
+RUN npm install -g yarn && \
+    # Instala Gemini CLI globalmente.
+    npm install -g @google/gemini-cli@latest
 
 # Instala las extensiones de VS Code.
 RUN code-server --install-extension Google.geminicodeassist \
