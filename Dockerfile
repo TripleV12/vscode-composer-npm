@@ -34,24 +34,44 @@ RUN apt-get update && apt-get install -y \
     php8.2-xml \
     php8.2-dom \
     # 'php8.2-mbstring' es necesario para manejar cadenas de caracteres de múltiples bytes.
-    php8.2-mbstring
-    
-# Descarga el script de configuración para la versión LTS (soporte a largo plazo) de Node.js,
-# lo ejecuta y luego instala Node.js y npm.
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
-    && apt-get install -y nodejs
+    php8.2-mbstring \
+    php-curl \
+    php-gd \
+    php-xdebug \
+    # Descarga e instala Node.js y npm.
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt-get install -y nodejs && \
+    # Instala Yarn globalmente.
+    npm install -g yarn && \
+    # Instala Gemini CLI globalmente.
+    npm install -g @google/gemini-cli@latest && \
+    # Descarga el instalador de Composer
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    # Limpia la caché del gestor de paquetes para reducir el tamaño final de la imagen.
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Instalación de Gemini CLI
-RUN npm install -g @google/gemini-cli@latest
+# Instala las extensiones de VS Code.
+RUN code-server --install-extension Google.geminicodeassist \
+    --install-extension google.gemini-cli-vscode-ide-companion \
+    --install-extension MS-CEINTL.vscode-language-pack-es \
+    --install-extension laravel.vscode-laravel \
+    --install-extension bmewburn.vscode-intelephense-client \
+    --install-extension ryannaddy.laravel-artisan \
+    --install-extension onecentlin.laravel-blade \
+    --install-extension mikestead.dotenv \
+    --install-extension php-debug \
+    --install-extension amiralizadeh9480.laravel-extra-intellisense \
+    --install-extension livewire.livewire-snippets \
+    --install-extension Vue.volar
 
-# Descarga el instalador de Composer (gestor de dependencias de PHP)
-# y lo instala en la ruta de ejecutables del sistema.
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Limpia la caché del gestor de paquetes para reducir el tamaño final de la imagen.
-# Es una buena práctica para mantener las imágenes ligeras.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Asegura los permisos para el usuario 'coder'
+RUN chown -R coder:coder /home/coder/ && \
+    # Crea y añade el archivo de configuración settings.json con formato
+    echo '{' >> /home/coder/.config/code-server/settings.json && \
+    echo '  "workbench.colorTheme": "Visual Studio Dark",' >> /home/coder/.config/code-server/settings.json && \
+    echo '  "geminicodeassist.updateChannel": "Insiders",' >> /home/coder/.config/code-server/settings.json && \
+    echo '  "keyboard.layout": "es"' >> /home/coder/.config/code-server/settings.json && \
+    echo '}' >> /home/coder/.config/code-server/settings.json
 
 # Vuelve a cambiar al usuario por defecto 'coder' por seguridad.
-# Todo el trabajo de desarrollo se hará con este usuario.
 USER coder
