@@ -25,12 +25,15 @@ RUN apt-get update && apt-get install -y \
 RUN npm install -g yarn && \
     npm install -g @google/gemini-cli@latest
 
-RUN chown -R coder:coder /home/coder/ && \
-    echo '{' >> /home/coder/.config/code-server/settings.json && \
-    echo '  "workbench.colorTheme": "Visual Studio Dark",' >> /home/coder/.config/code-server/settings.json && \
-    echo '  "geminicodeassist.updateChannel": "Insiders",' >> /home/coder/.config/code-server/settings.json && \
-    echo '  "keyboard.layout": "es"' >> /home/coder/.config/code-server/settings.json && \
-    echo '}' >> /home/coder/.config/code-server/settings.json
+RUN mkdir -p /home/coder/.config/code-server/ && \
+    chown -R coder:coder /home/coder/ && \
+    cat <<EOF > /home/coder/.config/code-server/settings.json
+{
+  "workbench.colorTheme": "Visual Studio Dark",
+  "geminicodeassist.updateChannel": "Insiders",
+  "keyboard.layout": "es"
+}
+EOF
 
 USER coder
 
